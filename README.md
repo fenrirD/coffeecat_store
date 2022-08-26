@@ -1,4 +1,13 @@
-[TOC]
+- [프로젝트 소개](#-------)
+  * [결과](#--)
+  * [설치](#--)
+    + [✔ Requirements](#--requirements)
+  * [구현 요구 사항](#--------)
+  * [폴더구조](#----)
+  * [주안점](#---)
+    + [✔ React Hook 따라해보기](#react-hook------)
+  * [한계점](#---)
+  * [TODO](#todo)
 
 # 프로젝트 소개
 Vanilla.js를 활용하여 CRA 구축 - 1
@@ -33,7 +42,16 @@ $ yanr start # http://localhost:3000
 ## 폴더구조
 
 ## 주안점
+### React Hook 따라해보기
+
+#### useState
+
+#### useEffect
+ 
 
 ## 한계점
 
-## TODO
+## ToDo
+* [ ] ts 적용
+* [ ] ts 적용
+ 
