@@ -1,16 +1,17 @@
 import {routeEvent} from "../../../router.js";
 import api from "../../../utils/api/api.js";
 import CustomHook from "../../../utils/hook/CustomHook.js"
+
 function handleProductClick(productId){
     routeEvent(`/products/${productId}`)
 }
 
-const ProductList = (_target) => {
+const ProductList = ($target) => {
     const container = document.createElement('div')
     container.className = 'ProductListPage'
 
-    const [products, setState] = CustomHook.useState([],ProductList, _target)
-    const [counter, setCounter] = CustomHook.useState(0,ProductList, _target)
+    const [products, setState] = CustomHook.useState([],ProductList, $target)
+    const [counter, setCounter] = CustomHook.useState(0,ProductList, $target)
 
 
     console.log(products, setState,"counter:", counter)
@@ -21,7 +22,9 @@ const ProductList = (_target) => {
         setCounter(counter+1)
 
     }
-    CustomHook.useEffect(()=>{fetchProducts()},[])
+    CustomHook.useEffect(()=>{fetchProducts()},[],ProductList)
+    CustomHook.useEffect(()=>{console.log(1)},[],ProductList)
+    CustomHook.useEffect(()=>{console.log(2)},[],ProductList)
 
 
 
@@ -52,8 +55,9 @@ const ProductList = (_target) => {
             <h1>상품 목록 페이지</h1>
             ${products.length ? renderProducts() : `<div>로딩중</div>`}
         `
-        _target.appendChild(container)
-        console.log(_target)
+        $target.appendChild(container)
+        CustomHook.resetEffect(ProductList)
+        console.log($target)
     }
 
 

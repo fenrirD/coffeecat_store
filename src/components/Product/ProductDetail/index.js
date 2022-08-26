@@ -23,7 +23,10 @@ const ProductDetail = ($target, {productId}) => {
         setProduct(r)
     }
 
-    CustomHook.useEffect(()=>{fetchProducts(productId)},[])
+    CustomHook.useEffect(()=>{fetchProducts(productId)},[],ProductDetail)
+    CustomHook.useEffect(()=> {
+        console.log("나는 option이 변경 될 때마다 실행 되야함", selectedOptions)
+    },[selectedOptions],ProductDetail)
 
     const handleOrderClick = () => {
         console.log('handleOrderClick')
@@ -118,10 +121,10 @@ const ProductDetail = ($target, {productId}) => {
             SelectedOptions(document.querySelector(".ProductDetail__selectedOptions"),{selectedOptions, product, handleInputValue, handleOrderClick})
 
         } else {
-
             container.innerHTML = `<h1>세부 상품 정보</h1><div>로딩중...</div>`
             $target.appendChild(container)
         }
+        CustomHook.resetEffect(ProductDetail)
 
 
     }

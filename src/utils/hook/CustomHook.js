@@ -1,9 +1,11 @@
+
 const CustomHook = (() => {
-    let _states = [];
-    let _idx = 0;
 
     let _statesOfComponent = new Map()
     let _idxOfComponent = new Map()
+    // Effect 와 state 는 분리 시켜도 무방하다. 같이 공유할 이유가 없음.
+    let _oldDepOfComponent = new Map()
+    let _idxEffectOfComponent = new Map()
 
     // render 에서 초기화 시켜주면?
     // 의미가 없다 실제로 랜더링 될때 마다 idx 값을 초기화 해줘야 한다.
@@ -51,43 +53,60 @@ const CustomHook = (() => {
         ]
     }
     // 변화를 줘야함
-    const useEffect = (callback, depArray) => {
-        const currentIdx = _idx
-        const oldDepArray = _states[currentIdx]
+    const useEffect = (callback, depArray, component) => {
+
+        // 기본적으로 컴포넌트 명이 없으면 0 으로 초기화.
+        if(!_idxEffectOfComponent.has(component.name)) _idxEffectOfComponent.set(component.name, 0)
+        // 빈 배열로 초기화
+        if(!_oldDepOfComponent.has(component.name)) _oldDepOfComponent.set(component.name, [])
+
+        const currentIdx = _idxEffectOfComponent.get(component.name)
+        const oldDeps = _oldDepOfComponent.get(component.name)
+        const oldDep = oldDeps[currentIdx]
+
+        // const currentIdx = _idx
+        // const oldDepArray = _states[currentIdx]
         // const oldDepArray = _states
-        // 한번은 바뀜
+
+        // 최초의 한번은 실행 된다.
         let isChange = true
 
-        if(oldDepArray) {
-            isChange = depArray.some((dep,i)=> !Object.is(dep, oldDepArray[i]))
-            console.log(isChange, 'useEffect', oldDepArray, depArray)
+        if(oldDep) {
+            isChange = depArray.some((dep,i)=> !Object.is(dep, oldDep[i]))
+            console.log(isChange, 'useEffect', oldDep, depArray)
         }
 
         if(isChange) {
             console.log('no!')
+            // 변경이 될 때맨 값을 변경해주면 된다.
+            oldDeps[currentIdx] = depArray
+            _oldDepOfComponent.set(component.name, oldDeps)
             callback()
         }
+        // effect 가 실행 될 때마다 값은 idx는 증가해야 함.
+        _idxEffectOfComponent.set(component.name, currentIdx+1)
+
+
         _states[currentIdx] = depArray
         // _states = depArray
 
     }
-    const init = () => {
-        console.log('init!')
-        _states = []
-        _idx = 0
+    const resetEffect = (component) => {
+        _idxEffectOfComponent.set(component.name, 0)
     }
     // 근본적인 해결 방법은 아닌듯..
 
     const idxInit = (currentComponent) => {
         _idxOfComponent.set(currentComponent.name, 0)
         _statesOfComponent.delete(currentComponent.name)
+        _oldDepOfComponent.delete(currentComponent.name)
     }
 
 
     return {
         useEffect,
         useState,
-        init,
+        resetEffect,
         idxInit
     }
 

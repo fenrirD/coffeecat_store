@@ -1,6 +1,3 @@
-
-import CustomHook from "../../../../utils/hook/CustomHook.js";
-
 const SelectedOptions = ($target, {selectedOptions, product, handleInputValue, handleOrderClick}) => {
     const container = document.createElement("div")
 

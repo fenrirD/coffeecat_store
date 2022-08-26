@@ -8,16 +8,13 @@ const getProductsTime = () => {
 const getProductTime = (productId) => {
     console.log('getProduct', productId, productId-1)
     return new Promise(resolve =>
-        setTimeout(()=> resolve(productDetail[parseInt(productId)-1]),2000))
+        setTimeout(()=> resolve(productDetail[parseInt(productId)-1]),1000))
 }
 
 const api = () => {
 
     const getProducts = async () => {
-
-        console.log(products)
         const response = await getProductsTime()
-        console.log(response)
         // const response = await fetch('https://uikt6pohhh.execute-api.ap-northeast-2.amazonaws.com/dev/products',{
         //     mode: "cors"
         // })

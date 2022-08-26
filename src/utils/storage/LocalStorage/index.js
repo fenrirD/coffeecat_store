@@ -18,11 +18,14 @@ const LocalStorage = (()=>{
     const getProductsCart = () => {
         return JSON.parse(storage.getItem('products_cart'))
     }
-    const call = () => {
-
+    const resetProductsCart = async () => {
+        return new Promise(resolve => {
+            storage.clear()
+            resolve(!getProductsCart())
+        })
     }
     return {
-        call,
+        resetProductsCart,
         setProductCart,
         getProductsCart
     }
