@@ -23,7 +23,7 @@ Vanilla.js를 활용하여 CRA 구축 - 1
 ### ✔ Requirements
 - node
 - yarn
-- 
+
 > [Node 설치 페이지](https://nodejs.org/ko/) \
 > [Yarn 설치 페이지](https://yarnpkg.com/getting-started/install)
 
@@ -53,5 +53,5 @@ $ yanr start # http://localhost:3000
 
 ## ToDo
 * [ ] ts 적용
-* [ ] ts 적용
+
  

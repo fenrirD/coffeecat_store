@@ -3,8 +3,6 @@
 const VanillaDom = () => {
     let target
 
-
-
     const render = (node) => {
         node(target)
     }

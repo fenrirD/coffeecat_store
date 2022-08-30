@@ -1,4 +1,4 @@
-
+// IIFE
 const CustomHook = (() => {
 
     let _statesOfComponent = new Map()
@@ -87,7 +87,7 @@ const CustomHook = (() => {
         _idxEffectOfComponent.set(component.name, currentIdx+1)
 
 
-        _states[currentIdx] = depArray
+        // _states[currentIdx] = depArray
         // _states = depArray
 
     }
